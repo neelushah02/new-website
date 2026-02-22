@@ -1,0 +1,448 @@
+/* ============================================================
+   NEEL SHAH — PERSONAL WEBSITE
+   Aesthetic: Light concrete. Editorial. Angular.
+   Fonts: Syne (name) + DM Mono (everything else)
+   Palette: Warm off-white + dark charcoal + moss/neon green
+   ============================================================ */
+
+
+/* === VARIABLES ============================================== */
+:root {
+  --bg:           #f0ede8;
+  --text:         #1a1a18;
+  --text-dim:     #888880;
+  --green:        #1a7a3c;
+  --green-bright: #22c95c;
+  --purple:       #5c35b0;
+
+  --font-display: 'Syne', sans-serif;
+  --font-body:    'Epilogue', sans-serif;
+
+  --max-width:    680px;
+  --border:       1px solid #c8c4bc;
+}
+
+
+/* === RESET ================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* === CUSTOM CURSOR ========================================== */
+* {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='3.5' fill='none' stroke='%231a1a18' stroke-width='1.5'/%3E%3Cline x1='10' y1='0' x2='10' y2='5.5' stroke='%231a1a18' stroke-width='1.5'/%3E%3Cline x1='10' y1='14.5' x2='10' y2='20' stroke='%231a1a18' stroke-width='1.5'/%3E%3Cline x1='0' y1='10' x2='5.5' y2='10' stroke='%231a1a18' stroke-width='1.5'/%3E%3Cline x1='14.5' y1='10' x2='20' y2='10' stroke='%231a1a18' stroke-width='1.5'/%3E%3C/svg%3E") 10 10, crosshair;
+}
+
+
+/* === BASE =================================================== */
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.75;
+  padding: 0 1.5rem;
+  position: relative;
+  min-height: 100vh;
+}
+
+
+/* === CONCRETE TEXTURE ======================================= */
+/* Three layers:
+   1. Fine grain (::before) — aggregate in the concrete surface
+   2. Vertical formwork lines (::after) — cast ribbing
+   3. Undulation vignette (canvas-vignette div) — depth/curvature
+      injected via JS since CSS can't do two ::after layers      */
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23g)'/%3E%3C/svg%3E");
+  opacity: 0.11;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* Vertical formwork striations — closer together and more visible */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to right,
+    transparent 0px,
+    transparent 28px,
+    rgba(0,0,0,0.02)  28px,
+    rgba(0,0,0,0.02)  29px,
+    transparent       29px,
+    transparent       54px,
+    rgba(0,0,0,0.014) 54px,
+    rgba(0,0,0,0.014) 55px,
+    transparent       55px,
+    transparent       89px,
+    rgba(0,0,0,0.022) 89px,
+    rgba(0,0,0,0.022) 90px,
+    transparent       90px,
+    transparent       118px,
+    rgba(0,0,0,0.016) 118px,
+    rgba(0,0,0,0.016) 119px,
+    transparent       119px,
+    transparent       157px,
+    rgba(0,0,0,0.02) 157px,
+    rgba(0,0,0,0.02) 158px,
+    transparent       158px,
+    transparent       192px,
+    rgba(0,0,0,0.013) 192px,
+    rgba(0,0,0,0.013) 193px
+  );
+  pointer-events: none;
+  z-index: 9997;
+}
+
+/* 3D undulation: a radial vignette that makes the centre
+   appear to swell forward — like a curved concrete panel.
+   Applied to a div injected by the JS below.               */
+#concrete-vignette {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 120% 100% at 50% 50%,
+    transparent 30%,
+    rgba(0,0,0,0.025) 65%,
+    rgba(0,0,0,0.06) 100%
+  );
+  pointer-events: none;
+  z-index: 9996;
+}
+
+/* A second, offset radial gives a slight top-left light source,
+   reinforcing the curved surface illusion */
+#concrete-light {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 90% 80% at 35% 30%,
+    rgba(255,255,255,0.04) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+  z-index: 9995;
+}
+
+
+/* === LAYOUT ================================================= */
+header, main, footer {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+
+/* === HEADER / NAV =========================================== */
+header {
+  padding: 2rem 0 0;
+  margin-bottom: 2rem;
+}
+
+nav {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  color: var(--text-dim);
+  transition: color 0.15s;
+  position: relative;
+}
+
+/* Animated underline slides in from left on hover */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--green-bright);
+  transition: width 0.2s ease;
+}
+
+.nav-links a:hover { color: var(--green-bright); }
+.nav-links a:hover::after { width: 100%; }
+
+
+/* === TYPOGRAPHY ============================================= */
+h1 {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 1.75rem;
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--green-bright);
+}
+
+p {
+  margin-bottom: 0.7rem;
+  font-size: 0.9rem;
+  color: var(--text);
+  line-height: 1.75;
+}
+
+a {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--green-bright);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color 0.2s;
+}
+
+a:hover { color: var(--green); }
+
+/* Northwestern-specific purple hover */
+a.northwestern { text-decoration-color: var(--purple); }
+a.northwestern:hover { color: var(--purple); }
+
+.kw { font-weight: 700; }
+
+
+/* === BIO SECTION ============================================ */
+.bio { margin-bottom: 4.5rem; }
+
+/* Large name — the visual anchor of the page */
+.bio-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 5rem;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-transform: lowercase;
+  margin-bottom: 0.6rem;
+  transition: letter-spacing 0.35s ease, color 0.6s ease;
+  display: inline-block;
+}
+
+/* Hover: letters spread apart satisfyingly */
+.bio-name:hover { letter-spacing: 0.04em; }
+
+.bio-tagline {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+  margin-bottom: 2.5rem;
+}
+
+.bio-body p {
+  font-size: 0.88rem;
+  line-height: 1.8;
+  margin-bottom: 0;
+  max-width: 56ch;
+}
+
+.bio-body p + p { margin-top: 0.9rem; }
+
+
+/* === EASTER EGG — Melville quote =========================== */
+.melville-quote {
+  display: none;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  font-style: italic;
+  border-left: 2px solid var(--text-dim);
+  padding-left: 0.75rem;
+  margin-top: 0.7rem;
+  max-width: 46ch;
+  line-height: 1.7;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.melville-quote.visible { display: block; }
+.melville-quote.shown   { opacity: 1; }
+
+#melville-trigger {
+  border-bottom: 1px dashed var(--text-dim);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+#melville-trigger:hover { color: var(--green); }
+
+
+/* === SECTIONS =============================================== */
+section { margin-bottom: 4.5rem; }
+
+
+/* === WRITING LIST =========================================== */
+.writing-list { list-style: none; }
+
+.writing-list li {
+  border-bottom: var(--border);
+  padding: 1rem 0;
+  /* transition for the JS magnetic effect */
+  transition: transform 0.4s ease;
+}
+
+.writing-list li:first-child { border-top: var(--border); }
+
+/* Green left accent bar appears on hover */
+.writing-list li {
+  border-left: 2px solid transparent;
+  padding-left: 0;
+  transition: transform 0.4s ease, border-left-color 0.2s ease, padding-left 0.2s ease;
+}
+
+.writing-list li:hover {
+  border-left-color: var(--green-bright);
+  padding-left: 0.6rem;
+}
+
+.writing-meta {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 0.2rem;
+}
+
+.writing-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+  line-height: 1.35;
+}
+
+.writing-title a {
+  text-decoration: none;
+  color: var(--text);
+  transition: color 0.15s;
+}
+
+.writing-title a:hover { color: var(--green); }
+
+.writing-desc {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin: 0;
+  line-height: 1.6;
+  max-width: 56ch;
+}
+
+
+/* === INDIVIDUAL WRITING PAGE ================================ */
+.writing-page { padding-top: 1rem; }
+
+.writing-page-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.8rem;
+  margin-bottom: 0.3rem;
+  color: var(--text);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.writing-page-meta {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+}
+
+.writing-page-body { font-size: 0.9rem; line-height: 1.85; }
+.writing-page-body p { margin-bottom: 1.2rem; max-width: 60ch; }
+
+.back-link {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  display: inline-block;
+  margin-bottom: 2.5rem;
+  color: var(--green);
+  transition: color 0.15s;
+}
+
+.back-link:hover { color: var(--text); }
+.back-link::before { content: "← "; }
+
+
+/* === CONTACT =============================================== */
+.contact-links {
+  display: flex;
+  gap: 2rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  flex-wrap: wrap;
+}
+
+.contact-links a {
+  text-decoration: none;
+  color: var(--text);
+  border-bottom: 1px solid var(--text-dim);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.contact-links a:hover {
+  color: var(--green-bright);
+  border-bottom-color: var(--green-bright);
+}
+
+
+/* === FOOTER ================================================= */
+footer { padding: 2rem 0; }
+
+
+/* === RESPONSIVE ============================================= */
+@media (max-width: 600px) {
+  /* Larger touch targets, tighter layout on mobile */
+  .bio-name { font-size: 3.4rem; }
+
+  .nav-links { gap: 1.5rem; }
+
+  /* Disable magnetic effect on touch — not meaningful without hover */
+  .writing-list li { transition: border-left-color 0.2s ease, padding-left 0.2s ease; }
+
+  /* Disable custom cursor on touch devices — it doesn't apply anyway
+     but keeps the code clean */
+  * { cursor: auto; }
+
+  .contact-links { gap: 1.5rem; }
+
+  /* Slightly more breathing room on small screens */
+  body { padding: 0 1.2rem; }
+
+  .bio-body p { max-width: 100%; }
+  .writing-desc { max-width: 100%; }
+}
+
+@media (max-width: 380px) {
+  .bio-name { font-size: 2.6rem; }
+  .nav-links { gap: 1rem; font-size: 0.65rem; }
+}

@@ -1,0 +1,26 @@
+---
+layout: base.njk
+---
+
+{# This layout wraps individual writing snippets that have their own page
+   (as opposed to writings that just link out to a PDF or external URL).
+   It extends base.njk, which provides the nav, header, and footer.      #}
+
+<article class="writing-page">
+
+  {# Back to homepage link #}
+  <a href="/#writing" class="back-link">all writing</a>
+
+  {# Title and metadata pulled from the file's front matter #}
+  <h2 class="writing-page-title">{{ title }}</h2>
+  <div class="writing-page-meta">
+    {{ date | year }}
+    {% if type %} · {{ type }}{% endif %}
+  </div>
+
+  {# The body of the writing — the actual Markdown content, converted to HTML #}
+  <div class="writing-page-body">
+    {{ content | safe }}
+  </div>
+
+</article>

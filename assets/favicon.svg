@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Background -->
+  <rect width="32" height="32" fill="#f0ede8"/>
+
+  <!-- Habitat 67: stacked offset cubic modules, isometric-ish
+       Three solid squares arranged like stacked brutalist blocks,
+       each offset to suggest mass and depth -->
+
+  <!-- Bottom-left block -->
+  <rect x="3" y="17" width="12" height="12" fill="#1a1a18"/>
+
+  <!-- Top-left block (offset up and slightly right) -->
+  <rect x="6" y="8" width="12" height="12" fill="#1a1a18"/>
+
+  <!-- Top-right block (offset right and up from bottom) -->
+  <rect x="17" y="3" width="12" height="12" fill="#22c95c"/>
+
+  <!-- Bottom-right block -->
+  <rect x="17" y="17" width="12" height="12" fill="#1a1a18"/>
+
+  <!-- Small gap/shadow lines to suggest depth between blocks -->
+  <rect x="3" y="17" width="12" height="1" fill="#f0ede8" opacity="0.4"/>
+  <rect x="17" y="17" width="12" height="1" fill="#f0ede8" opacity="0.3"/>
+</svg>

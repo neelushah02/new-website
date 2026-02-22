@@ -1,0 +1,138 @@
+---
+layout: base.njk
+title: Neel Shah
+---
+
+<section class="bio">
+
+  <div class="bio-name">neel shah</div>
+  <p class="bio-tagline">he/him &middot; chicago, il</p>
+
+  <div class="bio-body">
+
+    <p>
+      Finance and Capital Markets at
+      <a href="https://invenergy.com/">Invenergy</a> —
+      sourcing capital and executing deals for new-build
+      <span class="kw">renewable energy</span> projects.
+    </p>
+    <p>
+      Previously on Invenergy's Strategy team,
+      focused on utility-scale energy storage.
+    </p>
+
+    <p style="margin-top:1.4rem;">
+      I care about <span class="kw">decarbonization</span>,
+      <span class="kw">education</span>,
+      and <span class="kw">fiscal policy</span>.
+    </p>
+
+    <p style="margin-top:1.4rem;">
+      <a href="https://northwestern.edu" class="northwestern">Northwestern University</a>,
+      graduated with honors.
+      <a href="https://www.davisuwcscholars.org/" class="northwestern">Davis Scholar</a>.
+      <a href="https://historicalstudies.northwestern.edu/fellowships/leopold-fellows/" class="northwestern">Leopold Fellow</a>
+      in comparative tax policy.
+    </p>
+    <p>
+      <a href="https://www.ey.com/en_us/strategy/about-ey-parthenon">EY-Parthenon</a>,
+      <a href="https://www.se.com">Schneider Electric</a>,
+      <a href="https://isen.northwestern.edu/" class="northwestern">Institute for Sustainability and Energy</a>.
+    </p>
+
+    <p style="margin-top:1.4rem;">
+      Interests: cooking, pickup tennis,
+      <a href="#" id="melville-trigger">Herman Melville</a>.
+    </p>
+
+    <div class="melville-quote" id="melville-quote">
+      "It is the easiest thing in the world for a man to look as if he had a great secret in him."
+      <span style="display:block; margin-top:0.4rem; font-style:normal; font-size:0.68rem; letter-spacing:0.1em; opacity:0.6;">— Moby-Dick</span>
+    </div>
+
+  </div>
+
+</section>
+
+
+<section id="writing">
+  <h1>Writing</h1>
+  <ul class="writing-list">
+    {% for item in collections.writing %}
+    <li>
+      <div class="writing-meta">
+        {{ item.date | year }}{% if item.data.type %} &middot; {{ item.data.type }}{% endif %}
+      </div>
+      <div class="writing-title">
+        {% if item.data.link %}
+          <a href="{{ item.data.link }}" target="_blank" rel="noopener">{{ item.data.title }}</a>
+        {% else %}
+          <a href="{{ item.url }}">{{ item.data.title }}</a>
+        {% endif %}
+      </div>
+      {% if item.data.description %}
+        <p class="writing-desc">{{ item.data.description }}</p>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+
+
+<section id="contact">
+  <h1>Contact</h1>
+  <div class="contact-links">
+    <a href="mailto:neelushah02@gmail.com">email</a>
+    <a href="https://www.linkedin.com/in/neel-shah-4a641b1a7/" target="_blank" rel="noopener">linkedin</a>
+  </div>
+</section>
+
+<script>
+  // Easter egg: clicking "Herman Melville" reveals the quote.
+  const trigger = document.getElementById('melville-trigger');
+  const quote   = document.getElementById('melville-quote');
+  let shown = false;
+
+  trigger.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (!shown) {
+      quote.classList.add('visible');
+      setTimeout(() => quote.classList.add('shown'), 20);
+      shown = true;
+    } else {
+      quote.classList.remove('shown');
+      setTimeout(() => quote.classList.remove('visible'), 500);
+      shown = false;
+    }
+  });
+
+  // Satisfying hover: magnetic pull on writing list items.
+  // Each item subtly tracks the mouse on hover.
+  document.querySelectorAll('.writing-list li').forEach(item => {
+    item.addEventListener('mousemove', function(e) {
+      const rect = this.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const relX = (x / rect.width - 0.5) * 6;
+      this.style.transform = `translateX(${relX}px)`;
+    });
+    item.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateX(0)';
+      this.style.transition = 'transform 0.4s ease';
+    });
+    item.addEventListener('mouseenter', function() {
+      this.style.transition = 'transform 0.1s ease';
+    });
+  });
+
+  // Name hover: gentle letter spacing ripple on the name
+  // already handled in CSS, but add a click flash here too
+  const name = document.querySelector('.bio-name');
+  name.addEventListener('click', function() {
+    this.style.transition = 'color 0.05s';
+    this.style.color = 'var(--green-bright)';
+    setTimeout(() => {
+      this.style.color = '';
+      this.style.transition = 'color 0.6s ease, letter-spacing 0.3s ease';
+    }, 120);
+  });
+</script>
