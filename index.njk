@@ -18,7 +18,7 @@ title: Neel Shah
     </p>
     <p>
       Previously on Invenergy's Strategy team,
-      focused on utility-scale energy storage.
+      focused on <span class="kw">utility-scale energy storage</span>.
     </p>
 
     <p style="margin-top:1.4rem;">
@@ -42,7 +42,7 @@ title: Neel Shah
 
     <p style="margin-top:1.4rem;">
       Interests: cooking, pickup tennis,
-      <a href="#" id="melville-trigger">Herman Melville</a>.
+      <a href="#" id="melville-trigger"><span class="kw">Herman Melville</span></a>.
     </p>
 
     <div class="melville-quote" id="melville-quote">
@@ -88,7 +88,7 @@ title: Neel Shah
 </section>
 
 <script>
-  // Easter egg: clicking "Herman Melville" reveals the quote.
+  // Easter egg: clicking "Herman Melville" reveals a quote
   const trigger = document.getElementById('melville-trigger');
   const quote   = document.getElementById('melville-quote');
   let shown = false;
@@ -106,8 +106,7 @@ title: Neel Shah
     }
   });
 
-  // Satisfying hover: magnetic pull on writing list items.
-  // Each item subtly tracks the mouse on hover.
+  // Magnetic drift on writing list items
   document.querySelectorAll('.writing-list li').forEach(item => {
     item.addEventListener('mousemove', function(e) {
       const rect = this.getBoundingClientRect();
@@ -122,17 +121,5 @@ title: Neel Shah
     item.addEventListener('mouseenter', function() {
       this.style.transition = 'transform 0.1s ease';
     });
-  });
-
-  // Name hover: gentle letter spacing ripple on the name
-  // already handled in CSS, but add a click flash here too
-  const name = document.querySelector('.bio-name');
-  name.addEventListener('click', function() {
-    this.style.transition = 'color 0.05s';
-    this.style.color = 'var(--green-bright)';
-    setTimeout(() => {
-      this.style.color = '';
-      this.style.transition = 'color 0.6s ease, letter-spacing 0.3s ease';
-    }, 120);
   });
 </script>

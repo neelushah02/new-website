@@ -4,22 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>neel</title>
-  <link rel="stylesheet" href="/style.css">
-  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ '/style.css' | url }}">
+  <link rel="icon" href="{{ '/assets/favicon.ico' | url }}" sizes="32x32">
+  <link rel="icon" href="{{ '/assets/favicon.svg' | url }}" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Epilogue:ital,wght@0,400;0,600;0,700;1,400;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- Concrete 3D vignette layers — positioned fixed, pointer-events none -->
   <div id="concrete-vignette"></div>
   <div id="concrete-light"></div>
 
   <header>
     <nav>
       <div class="nav-links">
-        <a href="/#writing">writing</a>
+        <a href="{{ '/#writing' | url }}">writing</a>
         <a href="mailto:neelushah02@gmail.com">email</a>
       </div>
     </nav>
@@ -32,10 +32,10 @@
   <footer></footer>
 
   <script>
-    // Name click flash — green burst then returns to normal
-    const name = document.querySelector('.bio-name');
-    if (name) {
-      name.addEventListener('click', function() {
+    // Name click flash — green burst then fades back
+    const bioName = document.querySelector('.bio-name');
+    if (bioName) {
+      bioName.addEventListener('click', function() {
         this.style.transition = 'color 0.05s';
         this.style.color = 'var(--green-bright)';
         setTimeout(() => {
