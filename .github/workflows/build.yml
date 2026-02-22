@@ -1,0 +1,58 @@
+# This workflow runs every time you push to the main branch.
+# It installs Node, runs Eleventy to build the site, then
+# publishes the output to GitHub Pages automatically.
+# After this is set up, you never need to run Eleventy locally
+# to publish — just push your files and this handles the rest.
+
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main   # runs whenever you push to main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out your repo files
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Install Node.js (same engine that runs Eleventy)
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 3. Install your dependencies (Eleventy etc.) from package.json
+      - name: Install dependencies
+        run: npm install
+
+      # 4. Run Eleventy — builds your source into the _site folder
+      - name: Build site
+        run: npx eleventy
+
+      # 5. Upload the built _site folder so the deploy step can use it
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
