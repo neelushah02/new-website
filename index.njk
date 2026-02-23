@@ -5,8 +5,13 @@ title: Neel Shah
 
 <section class="bio">
 
-  <div class="bio-name">neel shah</div>
-  <p class="bio-tagline">he/him &middot; chicago, il</p>
+  <div class="bio-intro">
+    <img src="{{ '/assets/drawing.png' | url }}" alt="A drawing of Neel" class="bio-drawing">
+    <div class="bio-intro-text">
+      <div class="bio-name">neel shah</div>
+      <p class="bio-tagline">he/him &middot; chicago, il</p>
+    </div>
+  </div>
 
   <div class="bio-body">
 
@@ -22,7 +27,6 @@ title: Neel Shah
       sourcing capital and executing deals for new-build
       renewable energy projects.
     </p>
-  
 
     <p style="margin-top:1.4rem;">
       Some years ago—never mind how long precisely—I graduated from <a href="https://northwestern.edu" class="northwestern">Northwestern University</a>
@@ -84,7 +88,6 @@ title: Neel Shah
 </section>
 
 <script>
-  // Easter egg: clicking "Herman Melville" reveals a quote
   const trigger = document.getElementById('melville-trigger');
   const quote   = document.getElementById('melville-quote');
   let shown = false;
@@ -102,7 +105,6 @@ title: Neel Shah
     }
   });
 
-  // Magnetic drift on writing list items
   document.querySelectorAll('.writing-list li').forEach(item => {
     item.addEventListener('mousemove', function(e) {
       const rect = this.getBoundingClientRect();

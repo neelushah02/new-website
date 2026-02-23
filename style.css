@@ -421,28 +421,80 @@ footer { padding: 2rem 0; }
 
 /* === RESPONSIVE ============================================= */
 @media (max-width: 600px) {
-  /* Larger touch targets, tighter layout on mobile */
-  .bio-name { font-size: 3.4rem; }
+  body { padding: 0 1.2rem; }
+
+  * { cursor: auto; }
 
   .nav-links { gap: 1.5rem; }
 
-  /* Disable magnetic effect on touch — not meaningful without hover */
-  .writing-list li { transition: border-left-color 0.2s ease, padding-left 0.2s ease; }
+  .bio-name { font-size: 3rem; }
 
-  /* Disable custom cursor on touch devices — it doesn't apply anyway
-     but keeps the code clean */
-  * { cursor: auto; }
+  /* Stack drawing above name on mobile, centred */
+  .bio-intro {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
 
-  .contact-links { gap: 1.5rem; }
+  .bio-drawing {
+    width: 130px;
+      opacity: 0.82;
+  }
 
-  /* Slightly more breathing room on small screens */
-  body { padding: 0 1.2rem; }
+  .bio-intro-text {
+    width: 100%;
+  }
 
   .bio-body p { max-width: 100%; }
   .writing-desc { max-width: 100%; }
+
+  .writing-list li { transition: border-left-color 0.2s ease, padding-left 0.2s ease; }
+
+  .contact-links { gap: 1.5rem; }
 }
 
 @media (max-width: 380px) {
   .bio-name { font-size: 2.6rem; }
   .nav-links { gap: 1rem; font-size: 0.65rem; }
+}
+
+
+/* === BIO INTRO (name + drawing) ============================= */
+/* Flex row: name/tagline on the left, drawing floats right.
+   align-items: flex-end so the drawing sits on the same
+   baseline as the bottom of the name block. */
+.bio-intro {
+  display: flex;
+  align-items: flex-end;
+
+  gap: 1.5rem;
+  margin-bottom: 0;
+}
+
+.bio-intro-text {
+  flex: 1;
+}
+
+/* Drawing: sized to roughly match the height of the name.
+   The image is portrait (1452x1588) so width drives height.
+   160px wide ≈ 175px tall — sits nicely next to 5rem name. */
+.bio-drawing {
+  width: 240px;
+  flex-shrink: 0;
+  mix-blend-mode: multiply;
+  opacity: 0.88;
+  order: -1;
+}
+
+@media (max-width: 600px) {
+  /* On mobile: drawing moves above the name, centered */
+  .bio-intro {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .bio-drawing {
+    width: 150px;
+  }
 }
