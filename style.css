@@ -498,3 +498,20 @@ footer { padding: 2rem 0; }
     width: 150px;
   }
 }
+/* === WRITING IMAGE ========================================== */
+/* Use <img class="writing-img"> in any .md file for
+   auto-scaled images that fit the content column neatly */
+.writing-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.5rem 0;
+}
+
+/* Optional: smaller inset image, e.g. for portraits or details */
+.writing-img-sm {
+  max-width: 55%;
+  height: auto;
+  display: block;
+  margin: 1.5rem 0;
+}

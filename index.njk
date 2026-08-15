@@ -67,7 +67,7 @@ title: Neel Shah
         {% if item.data.link %}
           <a href="{{ item.data.link }}" target="_blank" rel="noopener">{{ item.data.title }}</a>
         {% else %}
-          <a href="{{ item.url }}">{{ item.data.title }}</a>
+          <a href="{{ item.url | url }}">{{ item.data.title }}</a>
         {% endif %}
       </div>
       {% if item.data.description %}
